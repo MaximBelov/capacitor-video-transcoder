@@ -1,4 +1,4 @@
-# capacitor-plugin-video-transcoder
+# capacitor-video-transcoder
 
 Turn a video from the phone's camera or gallery into an MP4 that every web browser plays, on iOS and Android, from a Capacitor app.
 
@@ -20,7 +20,7 @@ What comes out:
 ## Install
 
 ```bash
-npm install capacitor-plugin-video-transcoder
+npm install capacitor-video-transcoder
 npx cap sync
 ```
 
@@ -30,7 +30,7 @@ Android adds [Media3 Transformer](https://developer.android.com/media/media3/tra
 ## Use
 
 ```typescript
-import { VideoTranscoder } from 'capacitor-plugin-video-transcoder';
+import { VideoTranscoder } from 'capacitor-video-transcoder';
 
 const progress = await VideoTranscoder.addListener('progress', ({ progress }) => {
   console.log(`${Math.round(progress * 100)}%`);

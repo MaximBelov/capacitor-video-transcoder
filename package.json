@@ -1,5 +1,5 @@
 {
-  "name": "capacitor-plugin-video-transcoder",
+  "name": "capacitor-video-transcoder",
   "version": "0.0.1",
   "description": "Transcode a video into an MP4 that web browsers play, on iOS and Android, from a Capacitor app",
   "main": "dist/plugin.cjs.js",
@@ -13,16 +13,16 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "CapacitorPluginVideoTranscoder.podspec"
+    "CapacitorVideoTranscoder.podspec"
   ],
   "author": "Maxim Belov",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaximBelov/capacitor-plugin-video-transcoder.git"
+    "url": "git+https://github.com/MaximBelov/capacitor-video-transcoder.git"
   },
   "bugs": {
-    "url": "https://github.com/MaximBelov/capacitor-plugin-video-transcoder/issues"
+    "url": "https://github.com/MaximBelov/capacitor-video-transcoder/issues"
   },
   "keywords": [
     "capacitor",
@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
-    "verify:ios": "xcodebuild build -scheme CapacitorPluginVideoTranscoder -destination generic/platform=iOS -derivedDataPath build/ios-device",
+    "verify:ios": "xcodebuild build -scheme CapacitorVideoTranscoder -destination generic/platform=iOS -derivedDataPath build/ios-device",
     "verify:android": "cd android && ./gradlew clean build test",
     "verify:web": "npm run build",
     "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",

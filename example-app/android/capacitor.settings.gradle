@@ -5,5 +5,5 @@ project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/
 include ':capacitor-filesystem'
 project(':capacitor-filesystem').projectDir = new File('../node_modules/@capacitor/filesystem/android')
 
-include ':capacitor-plugin-video-transcoder'
-project(':capacitor-plugin-video-transcoder').projectDir = new File('../../android')
+include ':capacitor-video-transcoder'
+project(':capacitor-video-transcoder').projectDir = new File('../../android')

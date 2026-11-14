@@ -1,7 +1,7 @@
 {
   "name": "video-transcoder-example",
   "version": "1.0.0",
-  "description": "The example app of capacitor-plugin-video-transcoder: transcodes the videos in its in/ folder on launch",
+  "description": "The example app of capacitor-video-transcoder: transcodes the videos in its in/ folder on launch",
   "type": "module",
   "keywords": [
     "capacitor",
@@ -17,7 +17,7 @@
     "@capacitor/core": "^8.0.0",
     "@capacitor/filesystem": "^8.0.0",
     "@capacitor/ios": "^8.0.0",
-    "capacitor-plugin-video-transcoder": "file:.."
+    "capacitor-video-transcoder": "file:.."
   },
   "devDependencies": {
     "@capacitor/cli": "^8.0.0",

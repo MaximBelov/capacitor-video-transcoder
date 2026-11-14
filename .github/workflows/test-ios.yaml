@@ -38,7 +38,7 @@ jobs:
       - run: npm run build
       - run: npm run example:ios:build
       - name: The plugin is in the app's Swift package
-        run: grep -q 'CapacitorPluginVideoTranscoder' example-app/ios/App/CapApp-SPM/Package.swift
+        run: grep -q 'CapacitorVideoTranscoder' example-app/ios/App/CapApp-SPM/Package.swift
       - name: Stop what the build left running
         if: always()
         run: pkill -f '[x]codebuild' || true

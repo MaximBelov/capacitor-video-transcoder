@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { Directory, Encoding, Filesystem } from '@capacitor/filesystem';
-import { VideoTranscoder } from 'capacitor-plugin-video-transcoder';
+import { VideoTranscoder } from 'capacitor-video-transcoder';
 
 // The device check of the plugin: every video in in/ is transcoded into out/, then the error cases are run, and everything is
 // written to out/results.json, which the person checking reads back from the phone (devicectl or adb) together with the MP4s.

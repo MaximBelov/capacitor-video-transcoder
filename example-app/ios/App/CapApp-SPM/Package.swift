@@ -13,7 +13,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "8.6.2"),
         .package(name: "CapacitorFilesystem", path: "../../../node_modules/@capacitor/filesystem"),
-        .package(name: "CapacitorPluginVideoTranscoder", path: "../../../..")
+        .package(name: "CapacitorVideoTranscoder", path: "../../../..")
     ],
     targets: [
         .target(
@@ -22,7 +22,7 @@ let package = Package(
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
                 .product(name: "CapacitorFilesystem", package: "CapacitorFilesystem"),
-                .product(name: "CapacitorPluginVideoTranscoder", package: "CapacitorPluginVideoTranscoder")
+                .product(name: "CapacitorVideoTranscoder", package: "CapacitorVideoTranscoder")
             ]
         )
     ]

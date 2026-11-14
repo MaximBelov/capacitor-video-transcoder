@@ -5,11 +5,11 @@ import PackageDescription
 // Capacitor bridge to it. The core has a package of its own as well, ios/Package.swift, so that its tests run with `swift test`
 // on a Mac, where the bridge (which needs UIKit through Capacitor) does not build.
 let package = Package(
-    name: "CapacitorPluginVideoTranscoder",
+    name: "CapacitorVideoTranscoder",
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "CapacitorPluginVideoTranscoder",
+            name: "CapacitorVideoTranscoder",
             targets: ["VideoTranscoderPlugin"])
     ],
     dependencies: [
