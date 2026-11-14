@@ -1,0 +1,44 @@
+name: iOS tests
+# The Swift of ios/ with XCTest, twice: on the Mac with `swift test` (the core package in ios/, which transcodes the clips in
+# test/fixtures with AVFoundation), and on an iOS simulator (the same tests plus the bridge's). Then the library built for a device,
+# and the example app built for a simulator with the plugin installed the way an app installs it. No phone.
+# The jobs are independent and run side by side. Called by ci.yaml when something they cover changes, and for every push to main.
+on:
+  workflow_call:
+jobs:
+  # The Swift of ios/Sources against capacitor-swift-pm, with XCTest, then the same package built for a generic iOS device.
+  xctest:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - run: npm run test:core
+      - run: npm run test:ios
+      - run: npm run verify:ios
+      # A cancelled run leaves xcodebuild and the simulator running, which slows the runner's own clean-up for minutes.
+      - name: Stop what the tests left running
+        if: always()
+        run: |
+          pkill -f '[x]codebuild' || true
+          xcrun simctl shutdown all || true
+  # The plugin as an app sees it: the example app installs it from the repository (file:..), `cap sync` writes it into the app's
+  # Swift package, and xcodebuild builds the app for a simulator.
+  app:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run build
+      - run: npm run example:ios:build
+      - name: The plugin is in the app's Swift package
+        run: grep -q 'CapacitorPluginVideoTranscoder' example-app/ios/App/CapApp-SPM/Package.swift
+      - name: Stop what the build left running
+        if: always()
+        run: pkill -f '[x]codebuild' || true

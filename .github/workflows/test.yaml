@@ -1,0 +1,35 @@
+name: Tests
+# The TypeScript: lint, build, and the unit tests. Called by ci.yaml, for every pull request and every push to main.
+on:
+  workflow_call:
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          # the coverage reporter needs a current Node
+          node-version: 24
+      - run: npm ci
+      - run: npm run eslint
+      - run: npm run prettier -- --check
+      # The API section of the README is written by docgen from the JSDoc in src/definitions.ts. A change to the API that did not
+      # rebuild the README would publish documentation for the old API; this catches it in the pull request.
+      - name: The README documents the API in the source
+        run: |
+          npm run build
+          if [ -n "$(git status --porcelain -- README.md)" ]; then
+            git diff -- README.md
+            echo "README.md is not what docgen writes from src/definitions.ts: run npm run build and commit the result"
+            exit 1
+          fi
+      - run: npm run test:unit:coverage
+      - name: Keep the coverage report
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: coverage-js
+          path: coverage/js/lcov.info
+          if-no-files-found: ignore

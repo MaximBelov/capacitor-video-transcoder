@@ -1,0 +1,52 @@
+name: Android tests
+# The Kotlin of android/ on the JVM with JUnit (the option parsing and the size arithmetic), against Capacitor's Android library
+# from node_modules and Media3, and the example app built with the plugin installed the way an app installs it. No emulator: the
+# transcoding itself needs a phone's encoder, and is checked on one with the example app (README, Tests).
+# Called by ci.yaml when something it covers changes, and for every push to main.
+on:
+  workflow_call:
+jobs:
+  # The plugin library built (debug and release, with lint) and its JUnit tests run. Capacitor 8 builds with Java 21.
+  jvm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6.4.0
+      # settings.gradle takes capacitor-android from node_modules
+      - run: npm ci
+      - run: npm run verify:android
+      - name: Keep the test report
+        if: always()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: test-report-android
+          path: android/build/reports/tests
+          if-no-files-found: ignore
+  # The plugin as an app sees it: the example app installs it from the repository (file:..), `cap sync` registers it, and Gradle
+  # builds a debug APK. This is what catches a plugin that compiles alone and not inside an app.
+  app:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+      - uses: actions/setup-java@v6.0.1
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6.4.0
+      - run: npm ci
+      - run: npm run build
+      - run: npm run example:android:build
+      - name: The plugin is registered in the app
+        run: grep -q 'io.github.maximbelov.videotranscoder.VideoTranscoderPlugin' example-app/android/app/src/main/assets/capacitor.plugins.json
