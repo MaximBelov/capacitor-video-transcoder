@@ -1,26 +1,37 @@
 <!doctype html>
-<html lang="en" dir="ltr" class="hydrated">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <title>Example Capacitor App</title>
+    <title>Video Transcoder</title>
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="format-detection" content="telephone=no" />
+    <style>
+      body {
+        font: 14px/1.4 -apple-system, system-ui, sans-serif;
+        margin: 0;
+        padding: env(safe-area-inset-top) 16px 16px;
+      }
+      pre {
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-size: 12px;
+      }
+    </style>
   </head>
   <body>
     <main>
-      <h1>Capacitor Test Plugin Project</h1>
+      <h1>Video Transcoder</h1>
       <p>
-        This project can be used to test out the functionality of your plugin. Nothing in the
-        <em>example-app/</em> folder will be published to npm when using this template, so you can create away!
+        On launch this app transcodes every video in its <code>in/</code> folder (Documents on iOS, the app's external files
+        directory on Android) into <code>out/</code>, runs the error cases, and writes <code>out/results.json</code>.
       </p>
-      <label for="echoInput">Echo Text:</label>
-      <input type="text" id="echoInput" name="echoInput" value="Hello World!" />
-      <button onclick="testEcho()">Click Me!</button>
+      <button id="run" type="button">Run again</button>
+      <p id="progress"></p>
+      <pre id="log"></pre>
     </main>
-
     <script src="./js/example.js" type="module"></script>
   </body>
 </html>

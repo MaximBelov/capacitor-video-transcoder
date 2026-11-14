@@ -1,6 +1,6 @@
 {
-  "appId": "com.example.plugin",
-  "appName": "example-app",
+  "appId": "io.github.maximbelov.videotranscoder.example",
+  "appName": "Video Transcoder",
   "webDir": "dist",
   "plugins": {
     "SplashScreen": {
