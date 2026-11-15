@@ -1,6 +1,6 @@
 {
   "name": "capacitor-video-transcoder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Transcode a video into an MP4 that web browsers play, on iOS and Android, from a Capacitor app",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
